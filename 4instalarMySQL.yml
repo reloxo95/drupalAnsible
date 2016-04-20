@@ -1,0 +1,12 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: Actualizar apt
+    apt: update_cache=yes
+  - name: Instalar MySQL server
+    apt: name=mysql-server state=latest
+  - name: Instalar modulo de PHP para MySQL
+    apt: name=php-mysql state=latest
+  - name: Instalar modulo de Python para MySQL
+    apt: name=python-mysqldb state=latest
