@@ -1,0 +1,22 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: Insertar repositorios
+    lineinfile: dest=/etc/apt/sources.list line="deb http://packages.dotdeb.org jessie all"
+  - name: Insertar repositorios
+    lineinfile: dest=/etc/apt/sources.list line="deb-src http://packages.dotdeb.org jessie all"
+  - name: Anadir clave apt
+    command: wget https://www.dotdeb.org/dotdeb.gpg
+  - name: Añadir clave apt
+    command: apt-key add dotdeb.gpg
+  - name: Actualizar apt
+    apt: update_cache=yes
+  - name: Instalar PHP7
+    apt: name=php7.0 state=latest
+  - name: Instalar libreria PHP GD
+    apt: name=php5-gd state=latest
+  - name: Instalar interprete PHP en nginx para poder leerlo
+    apt: name=php5-fpm state=latest
+  - name: Instalar interprete PHP en MySQL
+    apt: name=php5-mysql state=latest
