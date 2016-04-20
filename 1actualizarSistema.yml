@@ -1,0 +1,18 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: Actualizar repositorios apt 
+    apt: update_cache=yes
+  - name: Actualizar paquetes del sistema
+    apt: upgrade=dist
+  - name: Instalar paquetes básicos del sistema
+    apt: name=software-properties-common
+  - name: Instalamos openssh-client por si no lo estan
+    apt: name=openssh-client state=latest
+  - name: Instalamos openssh-server
+    apt: name=openssh-server state=latest
+  - name: Instalamos git para despues
+    apt: name=git
+  - name: Hacemos un upgrade
+    apt: upgrade=dist
