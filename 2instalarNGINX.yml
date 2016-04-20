@@ -1,0 +1,26 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: Actualizar apt
+    apt: update_cache=yes
+#  - name: Descargamos el paquete nginx
+#    command: wget http://nginx.org/keys/nginx_signing.key
+#  - name: Añadimos la clave de apt
+#    command: apt-key add nginx_signing.key
+#  - name: Añadimos los repositorios a sources.lit
+#    command: echo "deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx >> /etc/apt/sources.list
+#  - name: Añadimos repositorios
+#    command: echo "deb-src http://nginx.org/packages/mainline/ubuntu/ trusty nginx  >> /etc/apt/sources.list
+#  - name: Borramos el anterior si esta
+#    command: apt-get remove nginx-common
+#  - name: Actualizar apt
+#    apt: update_cache=yes
+  - name: Instalar Nginx
+    apt: name=nginx
+  - name: Paramos nginx para configurarlo
+    command: fuser -k 80/tcp
+  - name: Copiamos el fichero de configuracion nuevo
+    copy: src=/home/christian/Drupal/ansible/default dest=/etc/nginx/sites-enable/defaultNuevo
+
+
