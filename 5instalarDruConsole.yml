@@ -1,0 +1,19 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+    - name: Instalamos curl para hacer la descarga
+      apt: name=curl state=latest
+    - name: Instalamos la extension php-gd (necesaria)
+      apt: name=php-gd state=latest
+    - name: Instalamos la extencion curl (necesaria)
+      apt: name=php-curl state=latest 
+    - name: Descargamos el instalador de drupalconsole
+      command: curl https://drupalconsole.com/installer -L -o drupal.phar
+    - name: Lo copiamos a /usr/local/bin para poder acceder a el
+      shell: mv drupal.phar /usr/local/bin/drupal
+    - name: Cambiamos los permisos
+      command: chmod +x /usr/local/bin/drupal
+    - name: Copiamos la configuracion por defecto
+      command: drupal init --override
+    
