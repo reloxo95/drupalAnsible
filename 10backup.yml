@@ -1,0 +1,6 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+   - name: Introducimos nueva tarea de crontab
+     lineinfile: dest=/etc/crontab line="0 12 * * mon root duplicity /usr/local/bin/drupal8.dev scp://DestinationPath"
