@@ -1,0 +1,34 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: Instalamos modulo hal
+    shell: drupal module:install hal --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo basic_auth
+    shell: drupal module:install basic_auth --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo rest
+    shell: drupal module:install rest --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo serialization
+    shell:  drupal module:install serialization --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo restui
+    shell: drupal module:install restui --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo devel
+    command: drupal module:install devel --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo simple_oauth
+    command: drupal module:install simple_oauth --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo devel_generate
+    command: drupal module:install devel_generate --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos modulo oauth
+    command: drupal module:install oauth --latest chdir=/usr/local/bin/drupal8.dev
+  - name: Instalamos theme seve
+    command: drupal theme:install seven chdir=/usr/local/bin/drupal8.dev
+  - name: Cremoas directorio para el rest_books 
+    shell: mkdir modules/custom chdir=/usr/local/bin/drupal8.dev
+  - name: Hacemos un git clone
+    command: git clone https://github.com/snooze6/rest_books.git chdir=/usr/local/bin/drupal8.dev/modules/custom
+  - name: Instalamos le modulo rest_books
+    command: drupal module:install rest_books chdir=/usr/local/bin/drupal8.dev
+  - name: Configuramos el modulo
+    command: drupal config:import --directory ./modules/custom/rest_books/config/optional chdir=/usr/local/bin/drupal8.dev
+  - name: Cambiamos permisos
+    command: chmod -R 777 . chdir=/usr/local/bin/drupal8.dev
