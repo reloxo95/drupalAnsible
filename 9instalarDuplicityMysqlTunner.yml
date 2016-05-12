@@ -1,0 +1,12 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: Actualizar apt
+    apt: update_cache=yes
+  - name: Instalar Duplicity
+    apt: name=duplicity
+  - name: Instalar NcFTP para hacer backup remoto
+    apt: name=ncftp
+  - name: Intalar MysqlTuner
+    apt: name=mysqltuner
